@@ -1,28 +1,23 @@
-import {
-  SET_USER,
-  LOGIN,
-  ADD_VOTE,
-  ADD_POLL,
-  ADD_USER,
-} from './types.js'
+import {SET_USER, LOGIN, ADD_VOTE, ADD_POLL, ADD_USER} from './types.js';
 const INTIAL_STATE = {
   currentUser: null,
   headersData: [],
   users: [
     {
-      name: "Ali",
-      image: 'https://idsb.tmgrup.com.tr/2017/07/25/i-revolt-therefore-i-am-in-the-personality-of-muhammad-ali-1501009105456.jpg',
+      name: 'Ali',
+      image:
+        'https://idsb.tmgrup.com.tr/2017/07/25/i-revolt-therefore-i-am-in-the-personality-of-muhammad-ali-1501009105456.jpg',
       answeredPolls: 3,
       createdPolls: 1,
     },
     {
-      name: "Iqbal",
+      name: 'Iqbal',
       image: 'https://i.dawn.com/large/2018/11/5be426644a78b.jpg?r=1489738040',
       answeredPolls: 3,
       createdPolls: 1,
     },
     {
-      name: "Ahmed",
+      name: 'Ahmed',
       image: 'https://i.redd.it/56wtab9my5z21.jpg',
       answeredPolls: 3,
       createdPolls: 1,
@@ -30,59 +25,59 @@ const INTIAL_STATE = {
   ],
   polls: [
     {
-      statement: "Why?",
+      statement: 'Why?',
 
-      options: [{ name: "eh" }, { name: "dntknow" }, { name: "what" }],
+      options: [{name: 'eh'}, {name: 'dntknow'}, {name: 'what'}],
       creator: 0,
       votes: [
-        { user: 0, option: 0 },
-        { user: 1, option: 2 },
+        {user: 0, option: 0},
+        {user: 1, option: 2},
       ],
     },
     {
-      statement: "Where?",
+      statement: 'Where?',
 
-      options: [{ name: "eh" }, { name: "dntknow" }, { name: "what" }],
+      options: [{name: 'eh'}, {name: 'dntknow'}, {name: 'what'}],
       creator: 1,
       votes: [
-        { user: 2, option: 0 },
-        { user: 0, option: 2 },
+        {user: 2, option: 0},
+        {user: 0, option: 2},
       ],
     },
     {
-      statement: "Who?",
-      options: [{ name: "eh" }, { name: "dntknow" }, { name: "what" }],
+      statement: 'Who?',
+      options: [{name: 'eh'}, {name: 'dntknow'}, {name: 'what'}],
       creator: 2,
       votes: [
-        { user: 2, option: 0 },
-        { user: 1, option: 2 },
+        {user: 2, option: 0},
+        {user: 1, option: 2},
       ],
     },
   ],
 };
 
 export default (state = INTIAL_STATE, action) => {
-  switch (action.type) {    
+  switch (action.type) {
     case SET_USER:
       return {
         ...state,
         currentUser: action.user,
         headersData: [
           {
-            label: "Home",
-            href: "/home",
+            label: 'Home',
+            href: '/home',
           },
           {
-            label: "Add Polls",
-            href: "/add",
+            label: 'Add Polls',
+            href: '/add',
           },
           {
-            label: "Leader Board",
-            href: "/leader",
+            label: 'Leader Board',
+            href: '/leader',
           },
           {
-            label: "Log Out",
-            href: "/",
+            label: 'Log Out',
+            href: '/',
           },
         ],
       };
@@ -108,6 +103,64 @@ export default (state = INTIAL_STATE, action) => {
         ...state,
         headersData: [],
         currentUser: null,
+        // state: {...INTIAL_STATE},
+        // state: {
+        //   currentUser: null,
+        //   headersData: [],
+        //   users: [
+        //     {
+        //       name: 'Ali',
+        //       image:
+        //         'https://idsb.tmgrup.com.tr/2017/07/25/i-revolt-therefore-i-am-in-the-personality-of-muhammad-ali-1501009105456.jpg',
+        //       answeredPolls: 3,
+        //       createdPolls: 1,
+        //     },
+        //     {
+        //       name: 'Iqbal',
+        //       image:
+        //         'https://i.dawn.com/large/2018/11/5be426644a78b.jpg?r=1489738040',
+        //       answeredPolls: 3,
+        //       createdPolls: 1,
+        //     },
+        //     {
+        //       name: 'Ahmed',
+        //       image: 'https://i.redd.it/56wtab9my5z21.jpg',
+        //       answeredPolls: 3,
+        //       createdPolls: 1,
+        //     },
+        //   ],
+        //   polls: [
+        //     {
+        //       statement: 'Why?',
+
+        //       options: [{name: 'eh'}, {name: 'dntknow'}, {name: 'what'}],
+        //       creator: 0,
+        //       votes: [
+        //         {user: 0, option: 0},
+        //         {user: 1, option: 2},
+        //       ],
+        //     },
+        //     {
+        //       statement: 'Where?',
+
+        //       options: [{name: 'eh'}, {name: 'dntknow'}, {name: 'what'}],
+        //       creator: 1,
+        //       votes: [
+        //         {user: 2, option: 0},
+        //         {user: 0, option: 2},
+        //       ],
+        //     },
+        //     {
+        //       statement: 'Who?',
+        //       options: [{name: 'eh'}, {name: 'dntknow'}, {name: 'what'}],
+        //       creator: 2,
+        //       votes: [
+        //         {user: 2, option: 0},
+        //         {user: 1, option: 2},
+        //       ],
+        //     },
+        //   ],
+        // },
       };
 
     default:
