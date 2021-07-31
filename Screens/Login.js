@@ -16,8 +16,8 @@ function Login({navigation}) {
 
   useFocusEffect(
     React.useCallback(() => {
-      dispatch({type: 'LOGIN'});
       if (currentUser != null) {
+        dispatch({type: 'LOGIN'});
         console.log(currentUser, 'user set null login');
       }
     }, []),

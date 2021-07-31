@@ -12,7 +12,7 @@ import {PersistGate} from 'redux-persist/integration/react';
 import {DefaultTheme, Provider as PaperProvider} from 'react-native-paper';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 const App = () => {
-  const Tab = createBottomTabNavigator();
+  const Stack = createStackNavigator();
   const {store, persistor} = configStore();
   const theme = {
     ...DefaultTheme,
@@ -26,16 +26,17 @@ const App = () => {
       <PersistGate loading={null} persistor={persistor}>
         <PaperProvider theme={theme}>
           <NavigationContainer>
-            <MyBottomTab Tab={Tab} />
+            <MyBottomTab />
           </NavigationContainer>
         </PaperProvider>
       </PersistGate>
     </Provider>
   );
 };
-function MyBottomTab({Tab}) {
+function MyBottomTab() {
   const currentUser = useSelector(state => state.currentUser);
   const users = useSelector(state => state.users);
+  const Tab = createBottomTabNavigator();
 
   return (
     <Tab.Navigator
@@ -83,6 +84,7 @@ function MyBottomTab({Tab}) {
         component={LoginScreen}
         options={{
           tabBarLabel: 'Log out',
+          tabBarVisible: false,
           tabBarIcon: ({color, size}) => (
             <MaterialCommunityIcons name="login" color={color} size={size} />
           ),
@@ -100,9 +102,9 @@ function HomeScreen() {
     <Stack.Navigator>
       <Stack.Screen
         name={
-          currentUser != null ? users[currentUser].name + "'s Home" : 'My Home'
+          currentUser != null ? users[currentUser].name + "'s Home" : 'Login'
         }
-        component={Home}
+        component={currentUser != null ? Home : Login}
       />
     </Stack.Navigator>
   );
@@ -124,4 +126,5 @@ function LoginScreen() {
     </Stack.Navigator>
   );
 }
+
 export default App;

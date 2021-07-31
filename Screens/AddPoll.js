@@ -1,5 +1,5 @@
-import React, {useState, useEffect} from 'react';
-import {Text, View, StyleSheet} from 'react-native';
+import React, {useState, useCallback} from 'react';
+import {ScrollView, Text, View, StyleSheet} from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
 import {useFocusEffect} from '@react-navigation/native';
 import {ADD_POLL} from '../store/types';
@@ -17,10 +17,15 @@ function AddPoll({navigation}) {
   const [message, setMessage] = useState('');
   const [disabled, setDisabled] = useState(false);
   useFocusEffect(
-    React.useCallback(() => {
+    useCallback(() => {
       setDisabled(false);
       setMessage('');
     }, [statement, options]),
+  );
+  useFocusEffect(
+    useCallback(() => {
+      setOptions([{name: ''}, {name: ''}]);
+    }, []),
   );
   const addThisPoll = () => {
     if (statement == '') {
@@ -64,57 +69,36 @@ function AddPoll({navigation}) {
     setOptions([...options, {name: ''}]);
   };
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <View style={styles.countContainer}>
         <Card style={styles.statementInput}>
-          <Title>About</Title>
-          {/* <Box style={{display: 'flex'}}>
-          <Text>New Poll</Text>
-        </Box> */}
+          <Title style={{textAlign: 'center'}}>New Poll</Title>
           <TextInput
-            // type="text"
-            // id="standard-full-width"
             label="Statement"
-            // style={{margin: 'auto'}}
-            // placeholder="Placeholder"           helperText="Add a statement for others"
             fullWidth
-            // margin="normal"
-            InputLabelProps={{
-              shrink: true,
-            }}
             value={statement}
             onChangeText={e => {
               setStatement(e);
             }}
           />
-          {/* <Grid spacing={1}> */}
           {options.map((option, i) => {
             return (
               <View key={i} style={styles.optionInput}>
                 <TextInput
                   label={'Option: ' + (i + 1)}
                   id="outlined-margin-normal"
-                  // margin="normal"
-                  // variant="outlined"
-                  // placeholder={'Add Option'}
                   value={option.name}
                   onChangeText={e => setOption(e, i)}
                 />
               </View>
             );
           })}
-          <Button
-            type="button"
-            // color="secondary"
-            title="Add Option"
-            onPress={addOption}>
+          <Button type="button" title="Add Option" onPress={addOption}>
             Add Option
           </Button>
-          {/* </Grid> */}
           <Button
             type="button"
             title="Add Poll"
-            // color="primary"
             disabled={disabled}
             onPress={addThisPoll}>
             Add Poll
@@ -125,14 +109,15 @@ function AddPoll({navigation}) {
           </Text>
         </Card>
       </View>
-    </View>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
+    // justifyContent: 'center',
+
     paddingHorizontal: 10,
   },
   button: {
@@ -151,7 +136,9 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   statementInput: {
+    padding: 20,
     // alignItems: 'center',
+    height: '100%',
     margin: 'auto',
     width: '100%',
   },

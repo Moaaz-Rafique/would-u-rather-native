@@ -9,6 +9,8 @@ import {
   Paragraph,
 } from 'react-native-paper';
 import {Text, View, StyleSheet} from 'react-native';
+import ProgressBar from './ProgressBar';
+
 function PollCard({poll, submitVote, index, deletePoll, currentUser, users}) {
   const {statement, options, votes, creator} = poll;
   const [selectedOption, setSelectedOption] = useState(0);
@@ -46,8 +48,22 @@ function PollCard({poll, submitVote, index, deletePoll, currentUser, users}) {
         {options.map((opt, index) => {
           return (
             <View style={styles.radioBtnContainer} key={index}>
-              {!voted ? <RadioButton value={opt.name} /> : null}
-              <Text>{opt.name}</Text>
+              {!voted ? (
+                <>
+                  <RadioButton value={index} color="green" />
+                  <Text>{opt.name}</Text>
+                </>
+              ) : (
+                <ProgressBar
+                  completed={(optionVotes[index] / noOfVotes) * 100}
+                  bgcolor={
+                    myVote?.name == opt.name
+                      ? 'rgba(70,200,100,1)'
+                      : 'rgba(255,100,100,1)'
+                  }
+                  label={opt.name}
+                />
+              )}
             </View>
           );
         })}

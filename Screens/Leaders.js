@@ -9,7 +9,6 @@ function Leaders({navigation}) {
   return (
     <ScrollView style={styles.container}>
       <View style={styles.countContainer}>
-        <Text>Leaders</Text>
         {users
           ?.sort(
             (a, b) =>
